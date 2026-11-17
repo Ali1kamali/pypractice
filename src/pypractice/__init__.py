@@ -1,46 +1,29 @@
+from dataclasses import dataclass
 from typing import Literal
 
-from .practices.easy import about as easy_about
-from .practices.medium import about as medium_about
-from .practices.hard import about as hard_about
-
-from .practices.easy import check as easy_check
-from .practices.medium import check as medium_check
-from .practices.hard import check as hard_check
+from .about import about as _about
+from .help import help as _help
+from .check import check as _check
+from .show_tests import show_tests as _show_tests
 
 
-def about(
-    difficulty: Literal["easy", "medium", "hard"],
+@dataclass(frozen=True)
+class Practice:
+    dificult: Literal["easy", "medium", "hard"]
     number: int
-):
-    practices = {
-        "easy": easy_about,
-        "medium": medium_about,
-        "hard": hard_about,
-    }
 
-    handler = practices.get(difficulty)
+    def about(self):
+        return _about(self.dificult, self.number)
 
-    if handler is None:
-        raise ValueError(f"Unsupported difficulty: {difficulty}")
+    def help(self):
+        return _help(self.dificult, self.number)
+    
+    def show_test(self):
+        return _show_tests(self.dificult, self.number)
 
-    return handler(number)
-
-
-def check(
-    difficulty: Literal["easy", "medium", "hard"],
-    number: int,
-    solution
-):
-    practices = {
-        "easy": easy_check,
-        "medium": medium_check,
-        "hard": hard_check,
-    }
-
-    handler = practices.get(difficulty)
-
-    if handler is None:
-        raise ValueError(f"Unsupported difficulty: {difficulty}")
-
-    handler(number , solution)
+    # with 's'
+    def show_tests(self):
+        return _show_tests(self.dificult, self.number)
+    
+    def check(self, solution):
+        return _check(self.dificult, self.number, solution)
