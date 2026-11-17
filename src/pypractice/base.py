@@ -31,6 +31,17 @@ class ExerciseTemplate(ABC):
                 print(f"Test {index}: ⚠️ ERROR - {error}")
 
         print(f"\n{passed}/{len(self.tests)} tests passed.")
+        print()
+
+    def _show_test_value(self , tests):
+        print("--- Upcoming Tests ---")
+
+        for i, (inputs, expected) in enumerate(tests, 1):
+            input_str = ", ".join(map(str, inputs))
+            print(f"Test {i}: Input({input_str}) -> Expected: {expected}")
+
+        print("----------------------")
+        print()
 
     def _pass(self, index):
         print(f"Test {index}: ✅ PASS")

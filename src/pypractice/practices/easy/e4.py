@@ -30,13 +30,7 @@ class Exercise(ExerciseTemplate):
 
     def show_tests(self):
         """نمایش تست‌هایی که قرار است اجرا شوند"""
-
-        print("--- Upcoming Tests ---")
-
-        for i, (inputs, expected) in enumerate(self.tests, 1):
-            input_str = ", ".join(map(str, inputs))
-            print(f"Test {i}: Input({input_str}) -> Expected: {expected}")
-        print("----------------------")
+        self._show_test_value(self.tests)
 
     def check(self, solution):
         self._check_function(solution)
